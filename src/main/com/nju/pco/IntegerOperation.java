@@ -1,5 +1,8 @@
 package com.nju.pco;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class IntegerOperation {
     private BasicOperation basicOperation;
 
@@ -12,10 +15,19 @@ public class IntegerOperation {
     }
 
     // 13
-    public String integerAddition(String operand1, String operand2, char c,
-                                  int length) {
-        assert (operand1.length() <= length) && (operand2.length() <= length)
-                && (operand1 != null) && (operand2 != null);
+    public String integerAddition(String operand1, String operand2, char c) {
+        int length = 32;
+        if (!((operand1 != null) && (operand2 != null) && (operand1.length() <= length) && (operand2.length() <= length)
+                && (!operand1.isEmpty()) && (!operand2.isEmpty()))) {
+            System.out.println("Illegal Input");
+        }
+        ;
+        Pattern pattern = Pattern.compile("^[0-1]+$");
+        Matcher oper1Match = pattern.matcher(operand1);
+        Matcher oper2Match = pattern.matcher(operand2);
+        if (!(oper1Match.matches() && oper2Match.matches())) {
+            System.out.println("Illegal Input");
+        }
         String result = "";
         String lens = "";
         String oper1 = operand1;
@@ -26,7 +38,6 @@ public class IntegerOperation {
         } else {
             len = (length / 8 + 1) * 8;
         }
-
         String[] temp = new String[len / 8];
         if (operand1.length() < len) {
             for (int j = 0; j < len - operand1.length(); j++) {
@@ -37,7 +48,6 @@ public class IntegerOperation {
                 }
             }
         }
-
         if (operand2.length() < len) {
             for (int j = 0; j < len - operand2.length(); j++) {
                 if (operand2.charAt(0) == '0') {
@@ -71,7 +81,6 @@ public class IntegerOperation {
                 result += "1";
             }
         }
-
         return result;
     }
 
@@ -91,10 +100,9 @@ public class IntegerOperation {
             } else
                 s += "0";
         }
-        operand2Negation = integerAddition(s, oper2, '0', oper2.length())
-                .substring(0, oper2.length());
+        operand2Negation = integerAddition(s, oper2, '0');
         assert operand2Negation != operand2;
-        result = integerAddition(operand1, operand2Negation, '0', length);
+        result = integerAddition(operand1, operand2Negation, '0');
         return result;
     }
 

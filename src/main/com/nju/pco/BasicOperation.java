@@ -18,21 +18,6 @@ public class BasicOperation {
     }
 
 
-    // 9
-    public String rightAriShift(String operand, int n) {
-        String result = "";
-        for (int i = 0; i < n; i++) {
-            if (operand.charAt(0) == '1') {
-                result += "1";
-            }
-            if (operand.charAt(0) == '0') {
-                result += "0";
-            }
-        }
-        result += operand.substring(0, operand.length() - n);
-        return result;
-    }
-
 
     // 11
     public String fullAdder(char x, char y, char c) {
